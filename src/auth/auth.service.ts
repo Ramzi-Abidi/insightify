@@ -12,6 +12,6 @@ export class AuthService {
     if (!req.user) {
       return 'No user from google';
     }
-    return req.user; 
+    return req.user;
   }
 }

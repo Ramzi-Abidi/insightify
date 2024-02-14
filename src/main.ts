@@ -15,10 +15,14 @@ async function bootstrap() {
   // app.setGlobalPrefix('api/v1/');
   app.use(cookieParser());
 
-  // somewhere in your initialization file
   app.use(
     session({
-      secret: 'adsfopzjgorx',
+      secret: 'aeifefeamlfùdmfgephtrnjuoa',
+      saveUninitialized: false,
+      resave: false,
+      cookie: {
+        maxAge: 60000,
+      },
     }),
   );
   app.use(passport.initialize());
