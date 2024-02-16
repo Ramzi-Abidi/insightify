@@ -9,14 +9,14 @@ export class SessionSerializer extends PassportSerializer {
     super();
   }
 
-  // store in cookie
+  // store token in cookie
   serializeUser(user: User, done: Function) {
     done(null, user.id);
   }
-  // get user from user_id which is cookie
-  async deserializeUser(payload: any, done: Function) {
-    console.log('payload', payload); // taking the unique id from session and return user object.
-    const user = await this._usersService.findOne(payload.id);
+  // transform token to user payload 
+  async deserializeUser(id: string | null, done: Function) {
+    const user = await this._usersService.findOne(id);
+    console.log("user from deserialize", user);
     return user ? done(null, user) : done(null, null);
   }
 }
