@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
+import * as configModule from './config/keys';
 const passport = require('passport');
 
 async function bootstrap() {
@@ -17,7 +18,7 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: 'aeifefeamlfùdmfgephtrnjuoa',
+      secret: configModule.configs.cookieKey,
       saveUninitialized: false,
       resave: false,
       cookie: {
@@ -28,6 +29,6 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  await app.listen(5000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();

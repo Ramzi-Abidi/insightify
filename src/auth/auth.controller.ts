@@ -18,12 +18,9 @@ export class AuthController {
     return this.authService.googleLogin(req);
   }
 
-  @Get('/current-user')
-  user(@Req() req: Request) {
-    if (req.user) {
-      return { message: 'Authenticated', user: req.user }
-    } else {
-      return { message: 'Not Authenticated' }
-    }
-  }
+  // @Get('logout')
+  // @UseGuards(GoogleAuthGuard)
+  // logout(@Req() req: Request) {
+  //   req.logout();
+  // }
 }

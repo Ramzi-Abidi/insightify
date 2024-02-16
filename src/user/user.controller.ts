@@ -1,18 +1,14 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
   Delete,
-  ExecutionContext,
   Req,
-  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 
 @Controller('user')
@@ -29,6 +25,14 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get('/current-user')
+  user(@Req() req: Request) {
+    if (req.user) {
+      return { message: 'Authenticated', user: req.user };
+    } else {
+      return { message: 'Not Authenticated' };
+    }
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

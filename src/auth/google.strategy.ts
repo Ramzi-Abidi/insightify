@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/user/entities/user.entity';
+import * as configModule from '../config/keys';
 
 config();
 
@@ -11,10 +12,11 @@ config();
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(private readonly _usersService: UserService) {
     super({
-      clientID: process.env.googleClientID,
-      clientSecret: process.env.googleClientSecret,
-      callbackURL: 'http://localhost:5000/auth/google/redirect',
+      clientID: configModule.configs.googleClientID,
+      clientSecret: configModule.configs.googleClientSecret,
+      callbackURL: '/auth/google/redirect',
       scope: ['email', 'profile'],
+      proxy: true,
     });
   }
 

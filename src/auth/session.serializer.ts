@@ -14,9 +14,8 @@ export class SessionSerializer extends PassportSerializer {
     done(null, user.id);
   }
   // transform token to user payload 
-  async deserializeUser(payload: any, done: Function) {
-    console.log('payload', payload); // taking the unique id from session and return user object.
-    const user = await this._usersService.findOne(payload.id);
+  async deserializeUser(id: string | null, done: Function) {
+    const user = await this._usersService.findOne(id);
     console.log("user from deserialize", user);
     return user ? done(null, user) : done(null, null);
   }
